@@ -3,7 +3,7 @@
 
 import MySQLdb
 
-db = MySQLdb.connect(host="52.199.2.57", user="mbiuser", passwd="mbi16948543",db="Zac_Test")
+db = MySQLdb.connect(host="", user="", passwd="",db="")
 
 #Creat a cursor for the select
 cur = db.cursor()
