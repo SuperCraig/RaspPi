@@ -6,7 +6,7 @@ class writeMySQL(object):
 
 	def WriteMySQL(self,list):
 		#connect to db
-		db = MySQLdb.connect("52.199.2.57","mbiuser","mbi16948543","wifi_sensor_value")
+		db = MySQLdb.connect("","","","wifi_sensor_value")
 
 		#setup cursor
 		cursor = db.cursor()
@@ -60,7 +60,7 @@ class writeMySQL(object):
 
 
 	def getDBRowCount(self):
-		db = MySQLdb.connect("52.199.2.57","mbiuser","mbi16948543","wifi_sensor_value")
+		db = MySQLdb.connect("","","","wifi_sensor_value")
 		cursor = db.cursor()
 		cursor.execute("select count(*) from wifi_sensor_value.sensor_value")
 		db.commit()
