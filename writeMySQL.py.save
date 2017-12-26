@@ -1,0 +1,67 @@
+import MySQLdb
+
+class writeMySQL(object):
+	def WriteMySQL(self):
+		#connect to db
+		db = MySQLdb.connect("52.199.2.57","mbiuser","mbi16948543","wifi_sensor_value")
+		dblocal = MySQLdb.connect("localhost","pi","raspberry","wifi_sensor_value")
+
+		#setup cursor
+		cursor = db.cursor()
+		cursorlocal = dblocal.cursor()
+		
+		dbRow = self.getDBRowCount()+1
+		localdbRow = self.getLocalDBRowCount()+1
+		print localdbRow," row count"
+
+		#insert to table
+		try:
+			cursor.execute(
+			"""INSERT INTO wifi_sensor_value.sensor_value VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
+			(dbRow,"2017-11-25",21,55,912,1.23,2.521,10.234))
+			db.commit()
+			
+			cursorlocal.execute(
+			"""INSERT INTO wifi_sensor_value.sensor_value VALUES (%s,%s,%s,%s,%s,%s,%s,%s)""",
+			(localdbRow,"2017-11-25",22,64,733,1.23,2.44,10.67))
+			dblocal.commit()
+
+			#cursor.execute("""insert into wifi_sensor_value.sensor_value values(2,"2017-11-23",23,67,923,1.12,2.2,10.43)""")
+			#db.commit()
+			
+			#cursorlocal.execute("""insert into wifi_sensor_value.sensor_value values(1,"2017-11-24",21,65,725,1.01,2.02,10.10)""")
+			#dblocal.commit()
+		except:
+			db.rollback()
+			dblocal.rollback()
+
+		#show table
+		#cursor.execute("SELECT * FROM wifi_sensor_value.sensor_value;")
+		#print cursor.fetchall()
+
+		cursorlocal.execute("select * from wifi_sensor_value.sensor_value;")
+		print cursorlocal.fetchall()
+		
+		db.close()
+		dblocal.close()
+
+	def getDBRowCount(self):
+		db = MySQLdb.connect("52.199.2.57","mbiuser","mbi16948543","wifi_sensor_value")
+		cursor = db.cursor()
+		cursor.execute("select count(*) from wifi_sensor_value.sensor_value")
+		db.commit()
+		row = cursor.fetchone()
+		db.close()
+		return row[0]
+
+
+	def getLocalDBRowCount(self):
+		db = MySQLdb.connect("localhost","pi","raspberry","wifi_sensor_value")
+		cursor = db.cursor()
+		cursor.execute("select count(*) from wifi_sensor_value.sensor_value")
+		db.commit()
+		row = cursor.fetchone()
+		db.close()
+		return row[0]
+
+	def setDBData(self,)

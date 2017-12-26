@@ -1,0 +1,21 @@
+#!/usr/bin/python
+#a simple script to pull some data from a MYSQL table
+
+import MySQLdb
+
+db = MySQLdb.connect(host="52.199.2.57", user="mbiuser", passwd="mbi16948543",db="Zac_Test")
+
+#Creat a cursor for the select
+cur = db.cursor()
+
+#execute an sql query
+cur.execute("SELECT * FROM Zac_Test.IoTFaceLog")
+
+#loop to iterate
+for row in cur.fetchall():
+	print "row1: " + str(row[6])
+	print "row2: " + str(row[7])
+
+cur.close()
+db.close()
+

@@ -1,0 +1,34 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+import socket
+
+import writeMySQL
+
+class UdpServer(object):
+	#def udpServer(self):
+	def udpServer(self,arr):
+		sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		sock.bind(('',25122))	#bind the same domain all machine
+		
+		while True:
+			recvData, (remoteHost, remotePort) = sock.recvfrom(1024)
+			print("[%s:%s] connect" % (remoteHost, remotePort)) #receive the client's ip and port
+			
+			#sendDataLen = sock.sendto("this is send data from server", (remoteHost, remotePort))
+			sendDataLen = sock.sendto(str(arr),(remoteHost, remotePort))
+			print "recvData: ",recvData
+			print "sendDataLen: ",sendDataLen
+
+			sensorValue = [26,72,918,1.23,2.42,3.54]
+			writemysql.setDBData(sensorValue)
+
+			writemysql = writeMySQL.writeMySQL()
+			writemysql.WriteMySQL()
+			
+		sock.close()
+
+if __name__ == "__main__":
+	udpServer = UDPServer()
+	udpServer.udpServer()
