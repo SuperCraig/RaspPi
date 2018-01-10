@@ -5,7 +5,7 @@ import sys
 #open a database connection
 #be sure to change the host IP address, username, password and database name
 # to match your own
-connection = MySQLdb.connect("52.199.2.57" , "mbiuser" , "mbi16948543" , "street_light_para" )
+connection = MySQLdb.connect("" , "" , "" , "street_light_para" )
 
 #prepare a cursor object using cursor() method
 cursor = connection.cursor()
